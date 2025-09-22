@@ -11,13 +11,14 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
-public class Handler {
+public class FranchiseHandler {
 
     private final FranchiseUseCase franchiseUseCase;
 
     public Mono<ServerResponse> createFranchise(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(FranchiseDTO.class)
-                .flatMap(franchiseDTO -> franchiseUseCase.create(franchiseDTO.getName()))
+                .map(FranchiseMapper.MAPPER::toModel)
+                .flatMap(franchiseUseCase::create)
                 .flatMap(franchise -> ServerResponse.ok().bodyValue(franchise));
     }
 
@@ -25,6 +26,7 @@ public class Handler {
         return serverRequest.bodyToMono(FranchiseDTO.class)
                 .map(FranchiseMapper.MAPPER::toModel)
                 .flatMap(franchiseUseCase::update)
-                .flatMap(franchise -> ServerResponse.ok().bodyValue(franchise));
+                .flatMap(franchise -> ServerResponse.ok().bodyValue(franchise))
+                .onErrorResume(IllegalArgumentException.class, error -> ServerResponse.notFound().build());
     }
 }

@@ -11,10 +11,18 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class RouterRest {
 
     @Bean
-    public RouterFunction<ServerResponse> routerFunction(Handler handler) {
+    public RouterFunction<ServerResponse> routerFunction(FranchiseHandler franchiseHandler,
+                                                         BranchHandler branchHandler,
+                                                         ProductHandler productHandler) {
         return route()
-                .POST("/api/v1/franchise", handler::createFranchise)
-                .PUT("/api/v1/franchise", handler::updateFranchise)
+                .POST("/api/v1/franchise", franchiseHandler::createFranchise)
+                .PUT("/api/v1/franchise", franchiseHandler::updateFranchise)
+                .POST("/api/v1/branch", branchHandler::createBranch)
+                .PUT("/api/v1/branch", branchHandler::updateBranch)
+                .POST("/api/v1/product", productHandler::createProduct)
+                .PUT("/api/v1/product", productHandler::updateProduct)
+                .DELETE("/api/v1/product/{id}", productHandler::deleteProduct)
+                .GET("/api/v1/product/{id}", productHandler::getMaxStockByBranch)
                 .build();
     }
 }

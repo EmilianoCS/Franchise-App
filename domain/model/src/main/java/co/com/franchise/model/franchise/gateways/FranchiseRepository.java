@@ -7,5 +7,5 @@ public interface FranchiseRepository {
 
     Mono<Franchise> save(Franchise franchise);
 
-    Mono<Franchise> update(Franchise franchise);
+    Mono<Franchise> getById(Long id);
 }

@@ -20,5 +20,12 @@ management:
     health:
       probes:
         enabled: true
-cors:
-  allowed-origins: "http://localhost:4200,http://localhost:8080"
+infrastructure:
+  driven-adapters:
+    my-sql:
+      host: "localhost"
+      port: "3306"
+      database: "franchise_management"
+      username: "your_username"
+      password: "your_password"
+      driver: "mysql"

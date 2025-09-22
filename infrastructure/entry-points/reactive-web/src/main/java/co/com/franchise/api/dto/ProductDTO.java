@@ -7,8 +7,10 @@ import lombok.extern.jackson.Jacksonized;
 @Value
 @Builder(toBuilder = true)
 @Jacksonized
-public class FranchiseDTO {
+public class ProductDTO {
 
     Long id;
     String name;
+    Integer stock;
+    Long idBranch;
 }

@@ -1,5 +1,4 @@
-package co.com.franchise.model.franchise;
-
+package co.com.franchise.model.branch;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
-public class Franchise {
+public class Branch {
 
     Long id;
     String name;
+    Long idFranchise;
 }

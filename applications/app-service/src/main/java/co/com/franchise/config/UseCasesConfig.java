@@ -1,14 +1,29 @@
 package co.com.franchise.config;
 
-import org.springframework.context.annotation.ComponentScan;
+import co.com.franchise.model.branch.gateways.BranchRepository;
+import co.com.franchise.model.franchise.gateways.FranchiseRepository;
+import co.com.franchise.model.product.gateways.ProductRepository;
+import co.com.franchise.usecase.branch.BranchUseCase;
+import co.com.franchise.usecase.franchise.FranchiseUseCase;
+import co.com.franchise.usecase.product.ProductUseCase;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.FilterType;
 
 @Configuration
-@ComponentScan(basePackages = "co.com.franchise.usecase",
-        includeFilters = {
-                @ComponentScan.Filter(type = FilterType.REGEX, pattern = "^.+UseCase$")
-        },
-        useDefaultFilters = false)
 public class UseCasesConfig {
+
+    @Bean
+    public FranchiseUseCase franchiseUseCase(FranchiseRepository franchiseRepository) {
+        return new FranchiseUseCase(franchiseRepository);
+    }
+
+    @Bean
+    public BranchUseCase branchUseCase(BranchRepository branchRepository) {
+        return new BranchUseCase(branchRepository);
+    }
+
+    @Bean
+    public ProductUseCase productUseCase(ProductRepository productRepository) {
+        return new ProductUseCase(productRepository);
+    }
 }
